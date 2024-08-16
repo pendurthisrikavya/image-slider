@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <style>
+        body {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(to right, #ffffff, #ffffff); /* Default gradient for no selection */
+            transition: background 1s ease;
+        }
+
+        .container {
+            width: 100%;
+            height: 90vh;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .imgContainer {
+            width: 100%;
+            height: 600px;
+            position: absolute;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 1s;
+        }
+
+        .slide_div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 30px;
+            position: relative;
+            transition: transform 1s ease-in-out;
+        }
+
+        img {
+            position: relative;
+            height: 370px;
+            width: 240px;
+            transition: 0.7s;
+            border-radius: 20px;
+            background-color: rgba(0, 0, 0, 0.4); /* Black blur for non-selected images */
+        }
+
+        .button {
+            position: absolute;
+            width: 240px;
+            height: 370px;
+            transition: 0.7s;
+            background-color: rgba(0, 0, 0, 0.4); /* Black blur for non-selected images */
+            border-radius: 20px;
+            z-index: 1;
+        }
+
+        .button:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Text overlay styles */
+        .slide_div::after {
+            content: '';
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 10px;
+            transition: opacity 0.5s;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Specific text for each slide */
+        #slider1:target ~ .imgContainer #slide_1::after {
+            content: 'SWITZERLAND';
+            opacity: 1;
+        }
+
+        #slider2:target ~ .imgContainer #slide_2::after {
+            content: 'ITALY';
+            opacity: 1;
+        }
+
+        #slider3:target ~ .imgContainer #slide_3::after {
+            content: 'PARIS';
+            opacity: 1;
+        }
+
+        #slider4:target ~ .imgContainer #slide_4::after {
+            content: 'JAPAN';
+            opacity: 1;
+        }
+
+        #slider5:target ~ .imgContainer #slide_5::after {
+            content: 'INDIA';
+            opacity: 1;
+        }
+
+        #slider6:target ~ .imgContainer #slide_6::after {
+            content: 'NEW YORK';
+            opacity: 1;
+        }
+
+        #slider7:target ~ .imgContainer #slide_7::after {
+            content: 'DUBAI';
+            opacity: 1;
+        }
+
+        /* Make the background color transparent for the selected image and button */
+        #slider1:target ~ .imgContainer #slide_1 img,
+        #slider1:target ~ .imgContainer #slide_1 .button {
+            width: 390px;
+            height: 600px;
+            background-color: transparent; /* Remove black blur for selected image */
+        }
+
+        #slider2:target ~ .imgContainer #slide_2 img,
+        #slider2:target ~ .imgContainer #slide_2 .button {
+            width: 390px;
+            height: 600px;
+            background-color: transparent; /* Remove black blur for selected image */
+        }
+
+        #slider3:target ~ .imgContainer #slide_3 img,
+        #slider3:target ~ .imgContainer #slide_3 .button {
+            width: 390px;
+            height: 600px;
+            background-color: transparent; /* Remove black blur for selected image */
+        }
+
+        #slider4:target ~ .imgContainer #slide_4 img,
+        #slider4:target ~ .imgContainer #slide_4 .button {
+            width: 390px;
+            height: 600px;
+            background-color: transparent; /* Remove black blur for selected image */
+        }
+
+        #slider5:target ~ .imgContainer #slide_5 img,
+        #slider5:target ~ .imgContainer #slide_5 .button {
+            width: 390px;
+            height: 600px;
+            background-color: transparent; /* Remove black blur for selected image */
+        }
+
+        #slider6:target ~ .imgContainer #slide_6 img,
+        #slider6:target ~ .imgContainer #slide_6 .button {
+            width: 390px;
+            height: 600px;
+            background-color: transparent; /* Remove black blur for selected image */
+        }
+
+        #slider7:target ~ .imgContainer #slide_7 img,
+        #slider7:target ~ .imgContainer #slide_7 .button {
+            width: 390px;
+            height: 600px;
+            background-color: transparent; /* Remove black blur for selected image */
+        }
+
+        #slider1:target ~ .imgContainer {
+            left: 60%;
+            background: linear-gradient(to right, #d4efdf, #a4d9a5); /* Ombre light green */
+        }
+
+        #slider2:target ~ .imgContainer {
+            left: 40%;
+            background: linear-gradient(to right, #ffecd2, #fcb69f); /* Ombre light orange */
+        }
+
+        #slider3:target ~ .imgContainer {
+            left: 20%;
+            background: linear-gradient(to right, #a2c2e4, #a5c8e1); /* Ombre light blue */
+        }
+
+        #slider4:target ~ .imgContainer {
+            left: 0%;
+            background: linear-gradient(to right, #f8d7da, #f5b8b1); /* Ombre light red */
+        }
+
+        #slider5:target ~ .imgContainer {
+            left: -20%;
+            background: linear-gradient(to right, #fff3b0, #fefcbf); /* Ombre light yellow */
+        }
+
+        #slider6:target ~ .imgContainer {
+            left: -40%;
+            background: linear-gradient(to right, #d0f0c0, #a0d6b4); /* Ombre light teal */
+        }
+
+        #slider7:target ~ .imgContainer {
+            left: -60%;
+            background: linear-gradient(to right, #003b6c, #004e92); /* Ombre light navy blue */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <span class="slider" id="slider1"></span>
+        <span class="slider" id="slider2"></span>
+        <span class="slider" id="slider3"></span>
+        <span class="slider" id="slider4"></span>
+        <span class="slider" id="slider5"></span>
+        <span class="slider" id="slider6"></span>
+        <span class="slider" id="slider7"></span>
+
+        <div class="imgContainer">
+            <div class="slide_div" id="slide_1">
+                <img src="switzerland.jpg" alt="" class="img" id="img1">
+                <a href="#slider1" class="button" id="button1"></a>
+            </div>
+            <div class="slide_div" id="slide_2">
+                <img src="italy.jpg" alt="" class="img" id="img2">
+                <a href="#slider2" class="button" id="button2"></a>
+            </div>
+            <div class="slide_div" id="slide_3">
+                <img src="paris.jpg" alt="" class="img" id="img3">
+                <a href="#slider3" class="button" id="button3"></a>
+            </div>
+            <div class="slide_div" id="slide_4">
+                <img src="japan.jpg" alt="" class="img" id="img4">
+                <a href="#slider4" class="button" id="button4"></a>
+            </div>
+            <div class="slide_div" id="slide_5">
+                <img src="india.jpg" alt="" class="img" id="img5">
+                <a href="#slider5" class="button" id="button5"></a>
+            </div>
+            <div class="slide_div" id="slide_6">
+                <img src="dubai.jpg" alt="" class="img" id="img6">
+                <a href="#slider6" class="button" id="button6"></a>
+            </div>
+            <div class="slide_div" id="slide_7">
+                <img src="newyork.jpg" alt="" class="img" id="img7">
+                <a href="#slider7" class="button" id="button7"></a>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
